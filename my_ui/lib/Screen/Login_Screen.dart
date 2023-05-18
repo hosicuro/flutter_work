@@ -23,6 +23,7 @@ class _LoginState extends State<Login_Screen> {
       ),
       body: GestureDetector(
         onTap: () {
+          // 이는 focus가 아닌, 즉 textfield나 keyboard 입력이 아닌 요소들을 감지한다.
           FocusScope.of(context).unfocus();
         },
         child: SingleChildScrollView(
