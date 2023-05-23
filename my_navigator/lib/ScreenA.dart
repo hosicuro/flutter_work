@@ -28,6 +28,7 @@ class ScreenA extends StatelessWidget {
                 // 여기서 context 인자가 들어가는 이유는, 현재 페이지를 찾아 그 위에 push 함수가 route를 올리기 때문이다.
                 // 따라서 현재 페이지의 BuildContext의 context가 그대로 들어간다.
                 Navigator.pushNamed(context, '/b');
+                // 만일 빼고 싶다면 당연히 Navigator.pop()을 이용한다!
               },
             )
           ],
