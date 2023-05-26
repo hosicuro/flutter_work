@@ -95,6 +95,7 @@ class _Main_ScreenState extends State<Main_Screen> {
 }
 
 void flutterToast(String message) {
+  Fluttertoast.cancel();
   Fluttertoast.showToast(
     msg: message,
     gravity: ToastGravity.BOTTOM,
