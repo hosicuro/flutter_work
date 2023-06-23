@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dataTable.dart';
+import 'get_apiPage.dart';
+import 'set_historyNumPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,9 +12,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Weather app',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.white,
       ),
-      home: dataTable(),
+      home: apiPage(),
     );
   }
 }
