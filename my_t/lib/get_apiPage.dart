@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_t/api_Source.dart';
+import 'package:my_t/source/api_Source.dart';
 
 class apiPage extends StatefulWidget {
   const apiPage({super.key});
@@ -148,7 +148,7 @@ class _apiPageState extends State<apiPage> {
                         controller: _textEditingController,
                         maxLength: 12,
                         validator: (value) {
-                          if (value!.isEmpty || value.length < 4) {
+                          if (value!.isEmpty || value.length < 12) {
                             // 임시 지정!!
                             return "유효하지 않습니다!";
                           } else {

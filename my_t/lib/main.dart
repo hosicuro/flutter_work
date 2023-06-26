@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_t/put_qrPage.dart';
 import 'get_apiPage.dart';
 import 'set_historyNumPage.dart';
 
@@ -13,8 +14,9 @@ class MyApp extends StatelessWidget {
       title: 'Weather app',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
+        primaryColor: Colors.black,
       ),
-      home: apiPage(),
+      home: QrPage(),
     );
   }
 }

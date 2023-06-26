@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_t/source/historyNum_Source.dart';
+import 'package:my_t/source/widgets.dart';
 
 class historyNumPage extends StatefulWidget {
   const historyNumPage({super.key});
@@ -8,21 +10,7 @@ class historyNumPage extends StatefulWidget {
 }
 
 class _historyNumPageState extends State<historyNumPage> {
-  final orders = ['소', '돼지'];
-  final largeOrders_1 = ['안심', '등심', '채끝', '목심', '앞다리', '우둔', '설도', '양지', '사태', '갈비'];
-
-  final List<List<String>> tableData = [
-    ['안심살'],
-    ['윗등심살', '꽃등심살', '아래등심살', '살치살'],
-    ['채끝살'],
-    ['목심살'],
-    ['꾸리살', '부채살', '앞다리살', '갈비덧살', '부채덮개살'],
-    ['우둔살', '홍두깨살', '보섭살', '설깃살', '설깃머리살', '도가니살', '삼각살'],
-    ['안심살'],
-    ['양지머리', '차돌박이', '업진살', '업진안살', '치마양지', '치마살', '앞치마살'],
-    ['앞사태', '뒷사태', '뭉치사태', '아롱사태', '상박살'],
-    ['본갈비', '꽃갈비', '참갈비', '갈빗살', '마구리', '토시살', '안창살', '제비추리'],
-  ];
+  historyNum_Source source = historyNum_Source();
 
   String? selectedOrders;
   int selectedorder = 0;
@@ -34,6 +22,8 @@ class _historyNumPageState extends State<historyNumPage> {
 
   String? selectedLittles;
   int selectedlittle = 0;
+
+  String? finalNumber;
 
   bool isFinal = false;
 
@@ -47,9 +37,9 @@ class _historyNumPageState extends State<historyNumPage> {
     }
   }
 
-  void setLarge(String large) {
+  void setLarge(String large, historyNum_Source source) {
     for (int i = 0; i < 10; i++) {
-      if (large == largeOrders_1[i]) {
+      if (large == source.largeOrders_1[i]) {
         selectedlarge = i;
         selectedLittles = null;
         selectedlittle = 0;
@@ -58,9 +48,9 @@ class _historyNumPageState extends State<historyNumPage> {
     }
   }
 
-  void setLittle(String little) {
-    for (int i = 0; i < tableData[selectedlarge].length; i++) {
-      if (little == tableData[selectedlarge][i]) {
+  void setLittle(String little, historyNum_Source source) {
+    for (int i = 0; i < source.tableData[selectedlarge].length; i++) {
+      if (little == source.tableData[selectedlarge][i]) {
         selectedlittle = i;
         break;
       }
@@ -69,6 +59,10 @@ class _historyNumPageState extends State<historyNumPage> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> orders = source.orders;
+    List<String> largeOrders_1 = source.largeOrders_1;
+    List<List<String>> tableData = source.tableData;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -82,28 +76,11 @@ class _historyNumPageState extends State<historyNumPage> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         foregroundColor: Colors.black,
-        leading: ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,
-            elevation: 0.0,
-          ),
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
-        ),
         actions: [
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              elevation: 0.0,
-            ),
-            child: Icon(
-              Icons.close,
-              color: Colors.black,
-            ),
+          elevated(
+            colorb: Colors.black,
+            colori: Colors.white,
+            icon: Icons.close,
           ),
         ],
       ),
@@ -248,7 +225,7 @@ class _historyNumPageState extends State<historyNumPage> {
                           ? (value) {
                               setState(() {
                                 selectedLarges = value as String;
-                                setLarge(selectedLarges!);
+                                setLarge(selectedLarges!, source);
                                 isselectedlarge = true;
                               });
                             }
@@ -292,7 +269,7 @@ class _historyNumPageState extends State<historyNumPage> {
                               setState(() {
                                 selectedLittles = value as String;
                                 isFinal = true;
-                                setLittle(selectedLittles!);
+                                setLittle(selectedLittles!, source);
                               });
                             }
                           : null),
