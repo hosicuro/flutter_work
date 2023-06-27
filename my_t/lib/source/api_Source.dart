@@ -10,8 +10,8 @@ class Source {
     final response = await http.get(Uri.parse(baseUrl));
 
     if (response.statusCode == 200) {
-      final getXmlData = response.body;
-      final Xml2JsonData = Xml2Json()..parse(getXmlData);
+      final body = convert.utf8.decode(response.bodyBytes);
+      final Xml2JsonData = Xml2Json()..parse(body);
       final jsonData = Xml2JsonData.toParker();
 
       final parsingData = convert.jsonDecode(jsonData);
