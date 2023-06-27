@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:my_t/source/api_Source.dart';
 import 'package:intl/intl.dart';
 
-class ApiPage extends StatefulWidget {
-  const ApiPage({super.key});
+class GetHistoryPage extends StatefulWidget {
+  const GetHistoryPage({super.key});
 
   @override
-  State<ApiPage> createState() => _ApiPageState();
+  State<GetHistoryPage> createState() => _GetHistoryPageState();
 }
 
-class _ApiPageState extends State<ApiPage> {
+class _GetHistoryPageState extends State<GetHistoryPage> {
   var apikey = "58%2FAb40DJd41UCVYmCZM89EUoOWqT0vuObbReDQCI6ufjHIJbhZOUtQnftZErMQf6%2FgEflZVctg97VfdvvtmQw%3D%3D";
   final _formkey = GlobalKey<FormState>();
   final TextEditingController _textEditingController = TextEditingController();
@@ -53,7 +53,7 @@ class _ApiPageState extends State<ApiPage> {
     tableData.clear();
 
     try {
-      Source source = Source(baseUrl: "http://data.ekape.or.kr/openapi-data/service/user/animalTrace/traceNoSearch?serviceKey=$apikey&traceNo=$traceNo");
+      ApiSource source = ApiSource(baseUrl: "http://data.ekape.or.kr/openapi-data/service/user/animalTrace/traceNoSearch?serviceKey=$apikey&traceNo=$traceNo");
 
       final meatData = await source.getJsonData();
 

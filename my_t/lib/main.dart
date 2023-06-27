@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_t/firebase_options.dart';
 import 'package:my_t/put_qrPage.dart';
 import 'get_apiPage.dart';
-import 'package:my_t/logged_in_page.dart';
+import 'package:my_t/insertion_camera_page.dart';
 import 'set_historyNumPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

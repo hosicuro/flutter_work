@@ -2,9 +2,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'package:xml2json/xml2json.dart';
 
-class Source {
+class ApiSource {
   final String baseUrl;
-  Source({required this.baseUrl});
+  ApiSource({required this.baseUrl});
 
   Future<dynamic> getJsonData() async {
     final response = await http.get(Uri.parse(baseUrl));

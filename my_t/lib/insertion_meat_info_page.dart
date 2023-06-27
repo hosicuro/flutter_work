@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:my_t/source/historyNum_Source.dart';
-import 'package:my_t/source/widgets.dart';
+import 'package:my_t/source/meat_info_source.dart';
+import 'package:my_t/source/widget_source.dart';
 
-class HistoryNumPage extends StatefulWidget {
-  const HistoryNumPage({super.key});
+class InsertionMeatInfoPage extends StatefulWidget {
+  const InsertionMeatInfoPage({super.key});
 
   @override
-  State<HistoryNumPage> createState() => _HistoryNumPageState();
+  State<InsertionMeatInfoPage> createState() => _InsertionMeatInfoPageState();
 }
 
-class _HistoryNumPageState extends State<HistoryNumPage> {
-  historyNum_Source source = historyNum_Source();
+class _InsertionMeatInfoPageState extends State<InsertionMeatInfoPage> {
+  MeatInfoSource source = MeatInfoSource();
   List<String>? largeData;
   List<List<String>>? tableData;
 
@@ -54,7 +54,7 @@ class _HistoryNumPageState extends State<HistoryNumPage> {
     }
   }
 
-  void setLarge(String large, historyNum_Source source) {
+  void setLarge(String large, MeatInfoSource source) {
     for (int i = 0; i < largeData!.length; i++) {
       if (large == largeData![i]) {
         largeNum = i;
@@ -69,7 +69,7 @@ class _HistoryNumPageState extends State<HistoryNumPage> {
     }
   }
 
-  void setLittle(String little, historyNum_Source source) {
+  void setLittle(String little, MeatInfoSource source) {
     for (int i = 0; i < tableData!.length; i++) {
       if (little == tableData![largeNum][i]) {
         littleNum = i;
