@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:my_t/source/widgets.dart';
+import 'package:deep_plant_app/source/widgets.dart';
 
 class QrPage extends StatefulWidget {
   const QrPage({super.key});
@@ -13,6 +13,7 @@ class _QrPageState extends State<QrPage> {
   // 이는 최종적인 결과를 저장한다. Barcode 클래스는 code와 format으로 이루어진다.
   // 당연히 format은 QR or barcode로 구분되며, code에는 결과, 즉 담긴 정보가 지정된다. (우리는 String, 일반적으로 url)
   Barcode? result;
+  String? data;
   // 이는 카메라 작동을 제어한다.
   QRViewController? controller;
 
@@ -31,12 +32,12 @@ class _QrPageState extends State<QrPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80.0),
+        preferredSize: Size.fromHeight(65.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AppBar(
-              //leadingWidth: 170,
+              leadingWidth: 170,
               title: Text(
                 'QR 스캔',
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -56,49 +57,93 @@ class _QrPageState extends State<QrPage> {
           ],
         ),
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(flex: 4, child: _buildQrView(context)),
-          Expanded(
-            flex: 1,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  // 'Barcode Type: ${describeEnum(result!.format)} -> 이는 enum 클래스 고유 기능으로,
-                  // enum 클래스를 통해 얻은 정보는 클래스 명 까지 나오기에, 이를 제거해준다. 우린 필요없는 기능이다.
-                  if (result != null) Text('Data: ${result!.code}'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            await controller?.pauseCamera();
-                          },
-                          child: const Text('pause', style: TextStyle(fontSize: 20)),
+      body: Stack(children: [
+        Column(
+          children: <Widget>[
+            Expanded(flex: 5, child: _buildQrView(context)),
+            Expanded(
+              flex: 1,
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    // 'Barcode Type: ${describeEnum(result!.format)} -> 이는 enum 클래스 고유 기능으로,
+                    // enum 클래스를 통해 얻은 정보는 클래스 명 까지 나오기에, 이를 제거해준다. 우린 필요없는 기능이다.
+                    if (result != null) Text('Data: ${result!.code}') else Container(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          margin: const EdgeInsets.all(4),
+                          height: 25.0,
+                          width: 50.0,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                            ),
+                            onPressed: () async {
+                              await controller?.pauseCamera();
+                            },
+                            child: const Text('pause',
+                                style: TextStyle(
+                                  fontSize: 5,
+                                  color: Colors.black,
+                                )),
+                          ),
                         ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            await controller?.resumeCamera();
-                          },
-                          child: const Text('resume', style: TextStyle(fontSize: 20)),
-                        ),
-                      )
-                    ],
-                  ),
-                ],
+                        Container(
+                          margin: const EdgeInsets.all(4),
+                          height: 25.0,
+                          width: 50.0,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                            ),
+                            onPressed: () async {
+                              await controller?.resumeCamera();
+                            },
+                            child: const Text('resume',
+                                style: TextStyle(
+                                  fontSize: 5,
+                                  color: Colors.black,
+                                )),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
+            )
+          ],
+        ),
+        // 카메라 위에 내용을 올리기 위해 사용
+        Positioned(
+          bottom: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.24,
+          right: (MediaQuery.of(context).size.width) * 0.29,
+          child: Text(
+            '저장된 데이터 불러오기',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.0,
             ),
-          )
-        ],
-      ),
+          ),
+        ),
+        Positioned(
+          bottom: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.19,
+          right: (MediaQuery.of(context).size.width) * 0.22,
+          child: Text(
+            'QR코드를 스캔하세요.',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 22.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ]),
     );
   }
 
@@ -115,11 +160,11 @@ class _QrPageState extends State<QrPage> {
         // 경계의 둥근 정도
         borderRadius: 15,
         // 경계가 채워질 정도의 길이 -> cutOutSize의 절반보다 작으면 경계가 없는 부분이 존재.
-        borderLength: 150,
+        borderLength: 140,
         // 두께
         borderWidth: 3,
         // 전반적인 layout 크기
-        cutOutSize: 300,
+        cutOutSize: 280,
       ),
     );
   }
@@ -134,6 +179,7 @@ class _QrPageState extends State<QrPage> {
       // 이곳에 오는 scanData는 Barcode 클래스이다.
       setState(() {
         result = scanData;
+        data = result!.code;
       });
     });
   }

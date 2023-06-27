@@ -3,7 +3,7 @@ class historyNum_Source {
   final largeOrders_1 = ['안심', '등심', '채끝', '목심', '앞다리', '우둔', '설도', '양지', '사태', '갈비'];
   final largeOrders_2 = ['안심', '등심', '목심', '앞다리', '갈비', '삼겹살', '뒷다리'];
 
-  final List<List<String>> tableData = [
+  final List<List<String>> tableData_1 = [
     ['안심살'],
     ['윗등심', '꽃등심', '아래등심', '살치살'],
     ['채끝살'],
@@ -16,7 +16,7 @@ class historyNum_Source {
     ['본갈비', '꽃갈비', '참갈비', '갈빗살', '마구리', '토시살', '안창살', '제비추리'],
   ];
 
-  final List<List<String>> tableeData = [
+  final List<List<String>> tableData_2 = [
     ['안심살'],
     ['등심살', '등심덧살'],
     ['목심살'],
